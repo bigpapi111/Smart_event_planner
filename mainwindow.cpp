@@ -1,17 +1,31 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include "partenaire.h"
+#include "invite.h"
 #include <QMessageBox>
+#include <QPainter>
+#include <QDesktopServices>
+#include <QtPrintSupport/QPrinter>
+#include <QtPrintSupport/QPrintDialog>
+#include <QtPrintSupport/QAbstractPrintDialog>
+#include <QUrl>
+#include <QDebug>
+#include <QSqlQuery>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
-
     ui->setupUi(this);
-
-    ui->tab_partenaire->setModel(P.afficher());
-
+    int ret=A.connect_arduino(); // lancer la connexion à arduino
+    switch(ret){
+    case(0):qDebug()<< "arduino is available and connected to : "<< A.getarduino_port_name();
+        break;
+    case(1):qDebug() << "arduino is available but not connected to :" <<A.getarduino_port_name();
+       break;
+    case(-1):qDebug() << "arduino is not available";
+    }
+     QObject::connect(A.getserial(),SIGNAL(readyRead()),this,SLOT(update_label())); // permet de lancer
+     //le slot update_label suite à la reception du signal readyRead (reception des données).
 }
 
 MainWindow::~MainWindow()
@@ -19,75 +33,66 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::on_pb_ajouter_clicked()
+void MainWindow::on_pushButton_clicked()
 {
-    int id=ui->le_id->text().toInt();
-    int cin=ui->le_cin->text().toInt();
-    QString nom=ui->le_nom->text();
-    QString prenom=ui->le_prenom->text();
-    QDate datenais=ui->le_datnais->date();
-    int num=ui->le_num->text().toInt();
-    QString adresse=ui->le_adresse->text();
-    QString domaine=ui->le_domaine->text();
+    QString cin,password;
+          cin =ui->lineEdit_CINLOG->text();
+          password=ui->lineEdit->text();
 
-    Partenaire P(id,cin,nom,prenom,datenais,num,adresse,domaine);
+          employer I;
+          QSqlQuery qry,query;
 
-    bool test = P.ajouter();
+      if(qry.exec("select CIN,PASSWORD from EMPLOYEE where CIN='"+cin +"' and PASSWORD='"+password+"'"))
+      {
+              int count=0;
+      while(qry.next())
+      {
+            count++;
 
-    if(test){
-        QMessageBox::information(nullptr,QObject::tr("OK"),
-                                 QObject::tr("Ajout effectué \n"),QMessageBox::Cancel);
-        ui->tab_partenaire->setModel(P.afficher());
-    }else {
-        QMessageBox::information(nullptr,QObject::tr("not OK"),
-                                 QObject::tr("Ajout non effectué \n"),QMessageBox::Cancel);
 
-}
-}
 
-void MainWindow::on_pb_supprimer_clicked()
+       if(count==1)
+       {
+           query.prepare("INSERT INTO EMPLOYEE(CIN,PASSWORD) "
+                                  "VALUES (:CIN,  :PW)");
+
+                    query.bindValue(":CIN",qry.value(0).toString());
+
+                    query.bindValue(":PW",qry.value(2).toString());
+
+                    query.exec();
+
+
+
+            this->hide();
+              ui->lineEdit_CINLOG->clear();
+              ui->lineEdit->clear();
+
+              Dialog dialog;
+                          dialog.setModal(true);
+                          dialog.exec();
+
+
+
+
+
+
+
+
+              }
+      }
+
+              if(count<1)
+              {
+
+
+              }
+}}
+void MainWindow::update_label()
 {
-
-    Partenaire P1; P1.setid(ui->le_id_supp->text().toInt());
-    bool test = P1.supprimer(P1.getid());
-
-    if(test){
-
-        QMessageBox::information(nullptr,QObject::tr("OK"),
-                                 QObject::tr("Supprission effectué \n"),QMessageBox::Cancel);
-        ui->tab_partenaire->setModel(P.afficher());
-
-    }else {
-        QMessageBox::information(nullptr,QObject::tr("not OK"),
-                                 QObject::tr("Supprission non effectué \n"),QMessageBox::Cancel);
-
-}
-}
+    data=A.read_from_arduino();
 
 
 
-void MainWindow::on_pb_modifier_clicked()
-{
-    int id=ui->le_id_modif->text().toInt();
-    int cin=ui->le_cin_modif->text().toInt();
-    QString nommod=ui->le_nom_modif->text();
-    QString prenommod=ui->le_prenom_modif->text();
-    QDate datenais=ui->le_datnaismodif->date();
-    int num=ui->le_nummodif->text().toInt();
-    QString adressemod=ui->le_adressemodif->text();
-     QString domainemodif=ui->le_domainemodif->text();
-    Partenaire P(id,cin,nommod,prenommod,datenais,num,adressemod,domainemodif);
-
-    bool test = P.modifier();
-
-    if(test){
-        QMessageBox::information(nullptr,QObject::tr("OK"),
-                                 QObject::tr("modification effectué \n"),QMessageBox::Cancel);
-        ui->tab_partenaire->setModel(P.afficher());
-    }else {
-        QMessageBox::information(nullptr,QObject::tr("not OK"),
-                                 QObject::tr("modification non effectué \n"),QMessageBox::Cancel);
-
-}
 
 }

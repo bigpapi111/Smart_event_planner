@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Chat</class>
+ <widget class="QWidget" name="Chat">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>691</width>
+    <height>468</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <widget class="QFrame" name="frame">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>711</width>
+     <height>481</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: rgb(0, 0, 0);</string>
+   </property>
+   <property name="frameShape">
+    <enum>QFrame::StyledPanel</enum>
+   </property>
+   <property name="frameShadow">
+    <enum>QFrame::Raised</enum>
+   </property>
+   <widget class="QLabel" name="label_3">
+    <property name="geometry">
+     <rect>
+      <x>160</x>
+      <y>50</y>
+      <width>291</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>TextLabel</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_4">
+    <property name="geometry">
+     <rect>
+      <x>140</x>
+      <y>40</y>
+      <width>331</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:16pt; color:#ffffff;&quot;&gt;Messagerie&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QWidget" name="layoutWidget">
+   <property name="geometry">
+    <rect>
+     <x>80</x>
+     <y>130</y>
+     <width>551</width>
+     <height>301</height>
+    </rect>
+   </property>
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <layout class="QHBoxLayout" name="horizontalLayout_2">
+      <item>
+       <widget class="QLabel" name="label">
+        <property name="styleSheet">
+         <string notr="true">color: rgb(255, 255, 255);
+background-color: rgb(63, 27, 139);</string>
+        </property>
+        <property name="text">
+         <string>Prenom</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="name">
+        <property name="styleSheet">
+         <string notr="true">color: #050505;
+background-color: rgb(20, 70, 29);
+    background-color: yellow;
+border-image: url(:/images/button-hover.png) 16; 
+color: rgb(127, 0, 63);
+    background-color: rgb(255, 255, 241);
+    selection-color: red
+;                                    
+    selection-background-color: rgb(191, 31, 127);
+    border: 2px groove gray;
+    border-radius: 10px;
+    padding: 2px 4px;</string>
+        </property>
+        <property name="placeholderText">
+         <string>PRENOM</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <widget class="QTextEdit" name="textEdit">
+      <property name="styleSheet">
+       <string notr="true">color: #050505;
+background-color: rgb(20, 70, 29);
+    background-color: yellow;
+border-image: url(:/images/button-hover.png) 16; 
+color: rgb(127, 0, 63);
+    background-color: rgb(255, 255, 241);
+    selection-color: red
+;                                    
+    selection-background-color: rgb(191, 31, 127);
+    border: 2px groove gray;
+    border-radius: 10px;
+    padding: 2px 4px;</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <layout class="QHBoxLayout" name="horizontalLayout">
+      <item>
+       <widget class="QLabel" name="label_2">
+        <property name="styleSheet">
+         <string notr="true">color: rgb(255, 255, 255);
+background-color: rgb(63, 27, 139);</string>
+        </property>
+        <property name="text">
+         <string>Message</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="message">
+        <property name="styleSheet">
+         <string notr="true">color: #050505;
+background-color: rgb(20, 70, 29);
+    background-color: yellow;
+border-image: url(:/images/button-hover.png) 16; 
+color: rgb(127, 0, 63);
+    background-color: rgb(255, 255, 241);
+    selection-color: red
+;                                    
+    selection-background-color: rgb(191, 31, 127);
+    border: 2px groove gray;
+    border-radius: 10px;
+    padding: 2px 4px;</string>
+        </property>
+        <property name="placeholderText">
+         <string>Message</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="send">
+        <property name="styleSheet">
+         <string notr="true">
+
+color: rgb(255, 255, 255);
+background-color: rgb(26, 57, 40);
+    background-color: rgb(15, 53, 33);
+    selection-color: white;                                    
+    selection-background-color: rgb(191, 31, 127);
+    border: 2px groove gray;
+    border-radius: 10px;
+    padding: 2px 4px;</string>
+        </property>
+        <property name="text">
+         <string>envoyer</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="bind">
+        <property name="styleSheet">
+         <string notr="true">
+
+color: rgb(255, 255, 255);
+background-color: rgb(26, 57, 40);
+    background-color: rgb(15, 53, 33);
+    selection-color: white;                                    
+    selection-background-color: rgb(191, 31, 127);
+    border: 2px groove gray;
+    border-radius: 10px;
+    padding: 2px 4px;</string>
+        </property>
+        <property name="text">
+         <string>connecter</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+   </layout>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
